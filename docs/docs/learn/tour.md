@@ -7,7 +7,7 @@ We will discuss the four foundational pillars of Jac’s design and how each pil
 
 ---
 
-## 📘 Document Organization
+## 📘 Organization
 
 - **Part 1:** Conceptual Overview
 - **Part 2:** Code Snippets and Detailed Descriptions
