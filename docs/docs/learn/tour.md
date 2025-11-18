@@ -23,7 +23,7 @@ This model is particularly effective for applications involving **connected data
 <!--  TODO: Insert illustrative graph diagram here -->
 
 ---
-### 2. Programming Abstractions for AI 
+### 2. Programming Abstractions for AI
 
 
 Jac is designed from the ground up to integrate AI directly into the programming model to simplify development of AI-powered applications.
@@ -77,10 +77,10 @@ enum Personality {
     AMBIVERT
 }
 
-# by keyword enables the program to integrate an LLM for the needed functionality 
-# Jaseci runtime automatically generates an optimized prompt for the LLM, 
-# checks errors and converts LLM output to the correct return type 
-def get_personality(name: str) -> Personality by llm(); 
+# by keyword enables the program to integrate an LLM for the needed functionality
+# Jaseci runtime automatically generates an optimized prompt for the LLM,
+# checks errors and converts LLM output to the correct return type
+def get_personality(name: str) -> Personality by llm();
 
 with entry {
     name = "Albert Einstein";
@@ -105,9 +105,9 @@ with entry {
 
 ### Object Spatial Programming: Going Beyond OOP
 
-Traditional OOP with python classes that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac introduces a new concept called Object-Spatial Programing (OSP). Using OSP construts, programmers can express object relationships as graphs using 
-- node classes (`node`), 
-- edge classes (`edge`), 
+Traditional OOP with python classes that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac introduces a new concept called Object-Spatial Programing (OSP). Using OSP construts, programmers can express object relationships as graphs using
+- node classes (`node`),
+- edge classes (`edge`),
 
 Instances of these node and edge classes form a graph structure that expresses semantic relationships between objects.
 
@@ -115,14 +115,14 @@ Computation in OSP occurs by traversing these graphs using two key constructs:
  -  walker classes (`walker`), which encapsulate object interactions and specify how computation moves through the graph,
  -  abilities (`abilities`), special methods that walkers automatically execute when they visit specific node types.
 
-OSP can be used where needed and maps nicely to many categories of problems, espeically those that deal with connected data, such as social network,  knowledge graph, file system, dependency graph, etc. In particular, it is sepcially suitable for describing workflow in Agentic systems  ;-). 
+OSP can be used where needed and maps nicely to many categories of problems, espeically those that deal with connected data, such as social network,  knowledge graph, file system, dependency graph, etc. In particular, it is sepcially suitable for describing workflow in Agentic systems  ;-).
 
 By modeling relationships directly as graph edges and expressing computation through walkers, OSP removes much of the boilerplate needed to manage graphs,  traversals, search and state. This makes complex logic simpler, clearer, and more scalable.
 
 In the Examples section, you’ll see cases where OSP cuts code size dramatically. For instance, we built an X-like social network (littleX) in just a few hundred lines, something that would typically take thousands using traditional OOP patterns.
 <!--  TODO: Say benefits of byllm + OSP in agentic AI and how it saves lines of code -->
 
-In this simple example, we aim to just illustrate the basic concepts. Here we have `Person` nodes, while walkers (`Greeter`) traverse the graph of `Person` objects and process them. For more OSP concepts, check out [Quick Start](https://docs.jaseci.org/learn/quickstart/#object-spatial-model), or [Syntax Quick Reference](https://docs.jaseci.org/learn/quick_reference/).  
+In this simple example, we aim to just illustrate the basic concepts. Here we have `Person` nodes, while walkers (`Greeter`) traverse the graph of `Person` objects and process them. For more OSP concepts, check out [Quick Start](https://docs.jaseci.org/learn/quickstart/#object-spatial-model), or [Syntax Quick Reference](https://docs.jaseci.org/learn/quick_reference/).
 
 
 ```jac
@@ -130,22 +130,22 @@ node Person {
     has name: str;
 }
 
-# Greeter can traverse the graph. 
+# Greeter can traverse the graph.
 # start and greet are two abilities of Greeter
 walker Greeter {
     has greeting_count: int = 0;
 
     can start with `root entry {
         print("Starting journey!");
-        visit [-->];  
+        visit [-->];
     }
 
     # ability greet will only execute when Greeter enters a Person type node
     can greet with Person entry {
         print(f"Hello, {here.name}!");
         self.greeting_count += 1;
-        
-        # specify how this walker can traverse the graph 
+
+        # specify how this walker can traverse the graph
         # in this case, visit all outgoing edges from the current node
         visit [-->];
     }
@@ -160,12 +160,12 @@ with entry {
     root ++> alice ++> bob ++> charlie;
 
     greeter = Greeter();
- # root is where the graph starts, and we will start the walker here   
+ # root is where the graph starts, and we will start the walker here
     root spawn greeter;
     print(f"Total greetings: {greeter.greeting_count}");
 }
 
- 
+
 ```
 
 ??? info "How To Run"
