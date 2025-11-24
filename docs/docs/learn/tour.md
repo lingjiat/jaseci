@@ -6,14 +6,14 @@ The **Jac programming language** and **Jaseci runtime** build on Python, introdu
 This document provides a quick walkthrough of the key features and design pillars of the **Jac-lang / Jaseci stack**, and how each pillar enables faster and more streamlined development.
 
 
-## Organization
+## 📘 Document Organization
 
 - **Part 1:** Conceptual Overview of Key Features
 - **Part 2:** Code Snippets and Detailed Descriptions
 
+---
 
-
-##  Part 1. Overview of Key Features
+##  Part 1. Conceptual Overview
 
 ### 1. Object-Spatial Programming (OSP)
 
@@ -31,7 +31,8 @@ This model is particularly effective for applications involving **connected data
 
 
 ---
-### 2. Programming Abstractions for AI 
+
+### 2. Programming Abstractions for AI
 
 
 Jac is designed from the ground up to integrate AI directly into the programming model to simplify development of AI-powered applications.
@@ -113,10 +114,7 @@ enum Personality {
     AMBIVERT
 }
 
-# by keyword enables the program to integrate an LLM for the needed functionality 
-# Jaseci runtime automatically generates an optimized prompt for the LLM, 
-# checks errors and converts LLM output to the correct return type 
-def get_personality(name: str) -> Personality by llm(); 
+def get_personality(name: str) -> Personality by llm();
 
 with entry {
     name = "Albert Einstein";
@@ -141,67 +139,73 @@ with entry {
 
 ### Object Spatial Programming: Going Beyond OOP
 
-Traditional OOP with python classes that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac introduces a new concept called Object-Spatial Programing (OSP). Using OSP construts, programmers can express object relationships as graphs using 
-- node classes (`node`), 
-- edge classes (`edge`), 
+Traditional OOP with python classes (`class` or Jac's dataclass-like `obj`) that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac programmers can also express object relationships with node classes (`node`), edge classes (`edge`), and object interactions with walker classes (`walker`) for richer modeling of problems called Object-Spatial Programing (OSP). This approach can be used where needed and maps nicely to may categories of problems (which happen to include agentic workflows ;-))
 
-Instances of these node and edge classes form a graph structure that expresses semantic relationships between objects.
+Instances of node and edge classes allow for assembling objects in a graph structure to express semantic relationships between objects. This goes beyond only modeling objects in memory as a disconnected soup of instances. Walker classes enables to expression of objects interacting with each other through special methods called abilities.
 
-Computation in OSP occurs by traversing these graphs using two key constructs:
- -  walker classes (`walker`), which encapsulate object interactions and specify how computation moves through the graph,
- -  abilities (`abilities`), special methods that walkers automatically execute when they visit specific node types.
-
-OSP can be used where needed and maps nicely to many categories of problems, espeically those that deal with connected data, such as social network,  knowledge graph, file system, dependency graph, etc. In particular, it is sepcially suitable for describing workflow in Agentic systems  ;-). 
-
-By modeling relationships directly as graph edges and expressing computation through walkers, OSP removes much of the boilerplate needed to manage graphs,  traversals, search and state. This makes complex logic simpler, clearer, and more scalable.
-
-In the Examples section, you’ll see cases where OSP cuts code size dramatically. For instance, we built an X-like social network (littleX) in just a few hundred lines, something that would typically take thousands using traditional OOP patterns.
-<!--  TODO: Say benefits of byllm + OSP in agentic AI and how it saves lines of code -->
-
-In this simple example, we aim to just illustrate the basic concepts. Here we have `Person` nodes, while walkers (`Greeter`) traverse the graph of `Person` objects and process them. For more OSP concepts, check out [Quick Start](https://docs.jaseci.org/learn/quickstart/#object-spatial-model), or [Syntax Quick Reference](https://docs.jaseci.org/learn/quick_reference/).  
-
+In this example, nodes represent meaningful entities (like Libraries and Shelves), while walkers (borrowers) traverse these node objects and process them.
 
 ```jac
-node Person {
-    has name: str;
+node Library {
+    has location: str;
+    can search_shelves with borrower entry;
 }
 
-# Greeter can traverse the graph. 
-# start and greet are two abilities of Greeter
-walker Greeter {
-    has greeting_count: int = 0;
+node Shelf {
+    has category: str;
+    can check_books with borrower entry;
+}
 
-    can start with `root entry {
-        print("Starting journey!");
-        visit [-->];  
-    }
+node Book {
+    has title: str;
+    has available: bool;
+}
 
-    # ability greet will only execute when Greeter enters a Person type node
-    can greet with Person entry {
-        print(f"Hello, {here.name}!");
-        self.greeting_count += 1;
-        
-        # specify how this walker can traverse the graph 
-        # in this case, visit all outgoing edges from the current node
-        visit [-->];
-    }
+walker borrower {
+    has book_needed: str;
+    can find_book with `root entry;
 }
 
 with entry {
-    alice = Person(name="Alice");
-    bob = Person(name="Bob");
-    charlie = Person(name="Charlie");
+    # Building the world is just linking nodes
+    lib1 = root ++> Library("Central Library");
+    lib2 = root ++> Library("Community Library");
 
- # specify the object graph, where root connects to alice, then bob, then charlie
-    root ++> alice ++> bob ++> charlie;
+    shelf1 = lib1 ++> Shelf("Fiction");
+    shelf2 = lib1 ++> Shelf("Non-Fiction");
+    shelf3 = lib2 ++> Shelf("Science");
 
-    greeter = Greeter();
- # root is where the graph starts, and we will start the walker here   
-    root spawn greeter;
-    print(f"Total greetings: {greeter.greeting_count}");
+    book1 = shelf1 ++> Book("1984", True);
+    book2 = shelf1 ++> Book("Brave New World", False);
+    book3 = shelf2 ++> Book("Sapiens", True);
+    book4 = shelf3 ++> Book("A Brief History of Time", False);
+    book5 = shelf3 ++> Book("The Selfish Gene", True);
+
+    # Send Borrower walking
+    borrower("1984") spawn root;
 }
 
- 
+impl Library.search_shelves {
+    visit [-->(`?Shelf)]; # No loops, just visit
+}
+
+impl Shelf.check_books {
+    found_book = [self -->(`?Book)](
+        ?title == visitor.book_needed, available == True
+    );
+
+    if (found_book) {
+        print(f"Borrowed: {found_book}");
+        print(f"From Shelf: {self.category}");
+        disengage; # Stop traversal cleanly
+    } else {
+        print("Book not available in shelf", self.category);
+    }
+}
+
+impl borrower.find_book {
+    visit [-->(`?Library)];
+}
 ```
 
 ??? info "How To Run"
