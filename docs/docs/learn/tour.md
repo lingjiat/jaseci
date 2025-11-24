@@ -1,18 +1,19 @@
 <h1 style="color: orange; font-weight: bold; text-align: center;">Key Features and Design Pillars</h1>
 
-This document provides a quick walkthrough of the key features and design pillars of the **Jac-lang / Jaseci stack**.
+
 The **Jac programming language** and **Jaseci runtime** build on Python, introducing **AI-first constructs**, **object-spatial programming (OSP)**, and **scale-native capabilities**.
 
-We will discuss the four foundational pillars of Jac’s design and how each pillar enables faster and more streamlined development.
+This document provides a quick walkthrough of the key features and design pillars of the **Jac-lang / Jaseci stack**, and how each pillar enables faster and more streamlined development.
 
 
-## 📘 Organization
+## Organization
 
 - **Part 1:** Conceptual Overview of Key Features
 - **Part 2:** Code Snippets and Detailed Descriptions
 
 
-##  Part 1. Key Feature Conceptual Overview
+
+##  Part 1. Overview of Key Features
 
 ### 1. Object-Spatial Programming (OSP)
 
@@ -21,6 +22,13 @@ Jac introduces a new programming model that lets developers articulate **relatio
 This model is particularly effective for applications involving **connected data**, such as social networks, knowledge graphs, or file systems, and can greatly reduce code complexity. OSP also provides the foundation for **agentic workflows** and enables **Jaseci’s scale-native execution**, reducing backend development and deployment overhead.
 
 <!--  TODO: Insert illustrative graph diagram here -->
+
+
+<figure id="fig-features" style="text-align: center;">
+    <img src="../assets/Features.svg" alt="Features illustration" style="width:65%; height:auto;">
+    <figcaption><strong>Figure 1:</strong> Overview of Jac's key features and capabilities.</figcaption>
+</figure>
+
 
 ---
 ### 2. Programming Abstractions for AI 
@@ -55,6 +63,34 @@ Developers can freely mix **Jac** and **Python**:
 - Import Jac modules directly into Python programs
 
 This tight interoperability enables teams to adopt Jac incrementally and integrate it seamlessly with existing Python ecosystems.
+
+## Who Jac/Jaseci Is For
+
+Jac/Jaseci is designed for anyone who wants to build applications quickly and cleanly.
+
+
+### Startups 
+Jac is perfect for rapid prototyping and iteration. One or two engineers can build features that normally require separate frontend, backend, ML, and infrastructure roles. Jac scales from prototype to production with the same code.
+
+
+### AI/ML Engineers
+Jac is AI-first: language-level constructs and runtime that use machine learning models seamlessly, reducing prompt engineering and making agent workflows natural. Ideal for building LLM agents, multimodal systems, and graph-based reasoning pipelines.
+
+### Experienced Developers and Large Teams
+For developers who want modern language features—optional type checking, cleaner syntax, structural modeling via OSP, and strong tooling—while keeping full access to Python’s ecosystem.
+
+### Frontend Engineers
+A great fit if you want to move into full-stack development without heavy backend or DevOps work. Jac lets developers build backend logic, manage state, integrate AI, and deploy, using a Python-like syntax.
+
+## When to Use Jac
+
+Jac is particularly well-suited when:
+
+- **Your domain is inherently graph-shaped**, where relationships matter as much as entities.
+- **You want LLMs and other AI models deeply integrated** into your application logic, rather than isolated in separate microservices and wrappers.
+- **You need to move from prototype to scalable service seamlessly**, without rewriting your system for microservices, orchestration, or extensive dev-ops.
+- **You already rely heavily on Python code or libraries** and want a smooth path to something more structured, graph-aware, and AI-centric.
+
 
 ---
 
