@@ -45,7 +45,7 @@ with entry {
 
 ### Object Spatial Programming: Going Beyond OOP
 
-TTraditional OOP with python classes that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac introduces a new concept called Object-Spatial Programing (OSP). Using OSP construts, programmers can express object relationships as graphs 
+TTraditional OOP with python classes that expresses object hierarchy and behavior is fully supported in Jac. Additionally, Jac introduces a new concept called Object-Spatial Programing (OSP). Using OSP construts, programmers can express object relationships as graphs
 
 - node classes (`node`),
 - edge classes (`edge`),

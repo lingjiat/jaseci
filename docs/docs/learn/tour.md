@@ -16,7 +16,7 @@ Although relatively new, Jac is already used in production environments across a
 
 ### 1. Object-Spatial Programming (OSP)
 
-Jac introduces a new programming model that lets developers articulate **relationships between objects** in a **graph-like structure** and express computation as **walkers** that traverse this graph. This model is particularly effective for applications involving **connected data**, such as social networks, knowledge graphs, or file systems, and can greatly reduce code complexity. OSP also provides the foundation for **agentic workflows** and enables **Jaseci’s scale-native execution**, reducing backend development and deployment overhead. [Learn more about OSP](https://docs.jaseci.org/learn/quickstart/). 
+Jac introduces a new programming model that lets developers articulate **relationships between objects** in a **graph-like structure** and express computation as **walkers** that traverse this graph. This model is particularly effective for applications involving **connected data**, such as social networks, knowledge graphs, or file systems, and can greatly reduce code complexity. OSP also provides the foundation for **agentic workflows** and enables **Jaseci’s scale-native execution**, reducing backend development and deployment overhead. [Learn more about OSP](https://docs.jaseci.org/learn/quickstart/).
 
 <!--  TODO: Insert illustrative graph diagram here -->
 
@@ -65,7 +65,7 @@ This tight interoperability enables teams to adopt Jac incrementally and integra
 Jac/Jaseci is designed for anyone who wants to build applications quickly and cleanly.
 
 
-- **Startups** 
+- **Startups**
 Jac is perfect for rapid prototyping and iteration. One or two engineers can build features that normally require separate frontend, backend, ML, and infrastructure roles. Jac scales from prototype to production with the same code.
 
 
@@ -86,7 +86,7 @@ Jac’s high-level abstractions hide much of the typical systems complexity, mak
 
 Jac is particularly well-suited when:
 
-- **Your problem domain is inherently graph-like**, where relationships between objects matter. 
+- **Your problem domain is inherently graph-like**, where relationships between objects matter.
 - **You want LLMs and other AI models deeply integrated** into your application logic, such as Agentic AI systems where you may need   prompt engineering and aritculating agent workflows.
 - **You need to move from prototype to scalable service seamlessly**, without rewriting your system for microservices, orchestration, or extensive dev-ops.
 - **You already rely heavily on Python code or libraries** and want a smooth path to something more structured, graph-aware, and AI-centric.
